@@ -78,10 +78,11 @@ private fun OrderPizzaContent(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             onSelectedSize = orderInteraction::onSelectedSizePlate
         )
-        SpacerVertical16()
+        SpacerVertical32()
         Text(
             modifier = Modifier.padding(start = space16),
-            text = stringResource(id = R.string.custom_your_pizza)
+            text = stringResource(id = R.string.custom_your_pizza),
+            color = MaterialTheme.colorScheme.onBackground.copy(.5F)
         )
         SpacerVertical16()
         Ingredients(
