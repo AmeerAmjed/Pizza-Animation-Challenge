@@ -14,14 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.ameer.pizzaanimation.ui.screens.order.IngredientUiState
+import com.ameer.pizzaanimation.ui.screens.order.OrderUiState
+import com.ameer.pizzaanimation.ui.utils.getSize
 
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun ItemIngredientPlate(state: IngredientUiState, size: Float) {
+@OptIn(ExperimentalAnimationApi::class)
+fun ItemIngredientPlate(state: OrderUiState, index: Int) {
     AnimatedVisibility(
-        visible = state.isSelected,
+        visible = state.ingredients[index].isSelected(state.pagerIndex),
         enter = scaleIn(initialScale = 10f) + fadeIn(),
         exit = fadeOut()
     ) {
@@ -31,9 +32,9 @@ fun ItemIngredientPlate(state: IngredientUiState, size: Float) {
         ) {
             Image(
 
-                painter = painterResource(id = state.idGroupDrawableRes),
+                painter = painterResource(id = state.ingredients[index].idGroupDrawableRes),
                 modifier = Modifier
-                    .size((size - 30).dp)
+                    .size((state.size.getSize() - 30).dp)
                     .align(Alignment.Center),
                 contentDescription = null,
             )

@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.ameer.pizzaanimation.R
 import com.ameer.pizzaanimation.ui.screens.order.OrderUiState
-import com.ameer.pizzaanimation.ui.utils.getSize
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -40,18 +39,18 @@ fun Plates(
             verticalAlignment = Alignment.CenterVertically,
         ) { page ->
 
+
             ItemPlate(
                 imageDrawable = state.bread[page],
                 sizeOrderState = state.size,
             )
 
-        }
 
-        state.ingredients.forEachIndexed { index, item ->
-            if (state.ingredients[index].isSelected(state.pagerIndex))
-                ItemIngredientPlate(
-                    item, size = state.size.getSize(),
-                )
+        }
+        state.ingredients.forEachIndexed { index, _ ->
+            ItemIngredientPlate(
+                state, index
+            )
         }
 
     }
