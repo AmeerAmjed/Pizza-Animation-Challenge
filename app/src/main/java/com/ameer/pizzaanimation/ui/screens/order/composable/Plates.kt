@@ -47,10 +47,11 @@ fun Plates(
 
         }
 
-        state.ingredients.forEach {
-            ItemIngredientPlate(
-                it, size = state.size.getSize(),
-            )
+        state.ingredients.forEachIndexed { index, item ->
+            if (state.ingredients[index].isSelected(state.pagerIndex))
+                ItemIngredientPlate(
+                    item, size = state.size.getSize(),
+                )
         }
 
     }

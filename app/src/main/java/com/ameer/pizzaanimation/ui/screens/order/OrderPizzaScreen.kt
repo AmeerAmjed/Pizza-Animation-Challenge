@@ -27,6 +27,7 @@ import com.ameer.pizzaanimation.ui.screens.order.composable.SizePlateOrder
 import com.ameer.pizzaanimation.ui.screens.order.composable.SpacerVertical16
 import com.ameer.pizzaanimation.ui.screens.order.composable.SpacerVertical32
 import com.ameer.pizzaanimation.ui.theme.space16
+import com.ameer.pizzaanimation.ui.utils.getSize
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
@@ -66,7 +67,7 @@ private fun OrderPizzaContent(
         )
         SpacerVertical32()
         Text(
-            text = state.price,
+            text = "$ ${(state.price * (state.size.getSize() / 100) - 10).toInt()}",
             style = MaterialTheme.typography.titleLarge,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
@@ -84,7 +85,7 @@ private fun OrderPizzaContent(
         )
         SpacerVertical16()
         Ingredients(
-            state = state.ingredients,
+            state = state,
             onCLick = orderInteraction::onSelectedIngredients
         )
 

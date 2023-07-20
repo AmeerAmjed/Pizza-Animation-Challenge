@@ -18,14 +18,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.ameer.pizzaanimation.ui.screens.order.IngredientUiState
 import com.ameer.pizzaanimation.ui.screens.order.OrderUiState
 import com.ameer.pizzaanimation.ui.theme.space16
 import com.ameer.pizzaanimation.ui.theme.space8
 
 @Composable
 fun Ingredients(
-    state: List<IngredientUiState>,
+    state: OrderUiState,
     onCLick: (id: Int) -> Unit,
 ) {
 
@@ -34,9 +33,9 @@ fun Ingredients(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(space8)
     ) {
-        items(count = state.size) { index ->
+        items(count = state.ingredients.size) { index ->
             ItemIngredients(
-                state = state[index],
+                state = state,
                 onCLick = onCLick,
                 index = index
             )
@@ -47,12 +46,11 @@ fun Ingredients(
 @Composable
 fun ItemIngredients(
     modifier: Modifier = Modifier,
-    state: IngredientUiState,
+    state: OrderUiState,
     onCLick: (id: Int) -> Unit,
     index: Int,
 ) {
-    var background =
-        if (state.isSelected) Color.Green.copy(.2F) else MaterialTheme.colorScheme.background
+
     Button(
         onClick = { onCLick(index) },
         modifier = modifier
@@ -60,14 +58,15 @@ fun ItemIngredients(
             .clip(CircleShape),
         contentPadding = PaddingValues(0.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = background
+            containerColor = if (state.ingredients[index].isSelected(state.pagerIndex))
+                Color.Green.copy(.2F) else MaterialTheme.colorScheme.background
         )
     ) {
         Image(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(CircleShape),
-            painter = painterResource(id = state.idDrawableRes),
+            painter = painterResource(id = state.ingredients[index].idDrawableRes),
             contentDescription = null
         )
     }

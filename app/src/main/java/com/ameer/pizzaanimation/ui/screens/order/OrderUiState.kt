@@ -5,7 +5,7 @@ import com.ameer.pizzaanimation.ui.base.BaseUiState
 
 data class OrderUiState(
     val pagerIndex: Int = 0,
-    val price: String = "$17",
+    val price: Int = 17,
     val size: SizeOrderState = SizeOrderState.Small,
     val bread: List<Int> = listOf(
         R.drawable.bread_1,
@@ -48,7 +48,12 @@ data class IngredientUiState(
     val isSelected: Boolean,
     val idDrawableRes: Int,
     val idGroupDrawableRes: Int,
-)
+    val breadAdd: List<Int> = listOf()
+) {
+    fun isSelected(id: Int): Boolean {
+        return breadAdd.contains(id)
+    }
+}
 
 enum class SizeOrderState {
     Small, Middle, Large,

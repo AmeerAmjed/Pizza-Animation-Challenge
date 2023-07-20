@@ -1,6 +1,5 @@
 package com.ameer.pizzaanimation.ui.screens.order
 
-import android.util.Log
 import com.ameer.pizzaanimation.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.update
 
@@ -17,8 +16,15 @@ class OrderVIewModel : BaseViewModel<OrderUiState>(OrderUiState()), OrderInterac
 
         val ingredients = _state.value.ingredients.toMutableList()
         val ingredient = ingredients[id]
+        val breadAddState = ingredient.breadAdd.toMutableList().apply {
+            if (contains(_state.value.pagerIndex))
+                remove(_state.value.pagerIndex)
+            else add(_state.value.pagerIndex)
+        }
+
         ingredients[id] = ingredient.copy(
-            isSelected = !ingredient.isSelected
+            isSelected = !ingredient.isSelected,
+            breadAdd = breadAddState
         )
 
         _state.update {
