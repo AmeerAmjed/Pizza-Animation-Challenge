@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.ameer.pizzaanimation.R
 import com.ameer.pizzaanimation.ui.screens.order.OrderUiState
+import com.ameer.pizzaanimation.ui.utils.getSize
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -45,6 +46,13 @@ fun Plates(
             )
 
         }
+
+        state.ingredients.forEach {
+            ItemIngredientPlate(
+                it, size = state.size.getSize(),
+            )
+        }
+
     }
 
 }

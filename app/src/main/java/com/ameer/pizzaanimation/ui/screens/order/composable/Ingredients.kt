@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.ameer.pizzaanimation.ui.screens.order.IngredientUiState
+import com.ameer.pizzaanimation.ui.screens.order.OrderUiState
 import com.ameer.pizzaanimation.ui.theme.space16
 import com.ameer.pizzaanimation.ui.theme.space8
 

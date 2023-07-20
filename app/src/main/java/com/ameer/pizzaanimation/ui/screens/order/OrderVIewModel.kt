@@ -1,5 +1,6 @@
 package com.ameer.pizzaanimation.ui.screens.order
 
+import android.util.Log
 import com.ameer.pizzaanimation.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.update
 
@@ -23,6 +24,14 @@ class OrderVIewModel : BaseViewModel<OrderUiState>(OrderUiState()), OrderInterac
         _state.update {
             it.copy(
                 ingredients = ingredients
+            )
+        }
+    }
+
+    override fun onChangeIndexViewPage(index: Int) {
+        _state.update {
+            it.copy(
+                pagerIndex = index
             )
         }
     }

@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,8 +37,9 @@ import com.google.accompanist.pager.rememberPagerState
 fun OrderPizzaScreen(
     viewModel: OrderVIewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState(initialPage = 1)
+
     val state by viewModel.state.collectAsState()
+    val pagerState = rememberPagerState(initialPage = state.pagerIndex)
     OrderPizzaContent(
         state = state,
         pagerState = pagerState,
@@ -91,6 +94,13 @@ private fun OrderPizzaContent(
                 .align(Alignment.CenterHorizontally)
         ) {}
         Spacer(modifier = Modifier.weight(1F))
+    }
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }
+            .collect { currentPage ->
+                orderInteraction.onChangeIndexViewPage(currentPage)
+            }
     }
 
 }
